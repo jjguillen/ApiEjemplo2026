@@ -14,10 +14,12 @@ services:
     container_name: springmariadb
     image: mariadb:latest
     environment:
+      MARIADB_USER: usuario
+      MARIADB_PASSWORD: usuario1234
       MYSQL_ROOT_PASSWORD: toor
-      MYSQL_DATABASE: spring_jwt
+      MARIADB_DATABASE: springapi
     ports:
-      - "3308:3306"
+      - "3309:3306"
     volumes:
       - ./mysql:/var/lib/mysql
     healthcheck:

@@ -5,7 +5,7 @@ ENTRYPOINT ["java","-jar","/app.jar"]
 
 # podman build -t springapiejemplo:1.0 .
 # podman image list
-# podman run -p 8080:8080 --name springapp -d -t springapiejemplo:1.0
+# podman run -p 8080:8080 --network=host --name springapp -d -t springapiejemplo:1.0
 # podman stop springapp
 # podman start springapp
 # podman stats
