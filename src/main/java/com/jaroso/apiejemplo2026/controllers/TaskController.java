@@ -31,7 +31,7 @@ public class TaskController {
 
     @GetMapping("/prueba")
     public String error() {
-        return "Mensaje de error";
+        return "Mensaje de error con cambio";
     }
 
 
