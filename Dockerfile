@@ -16,3 +16,10 @@ ENTRYPOINT ["java","-jar","/app.jar"]
 # linux ->
 # podman run -p 8080:8080 --network host  --name springapp -d -t springapiejemplo:1.0
 
+# Pasos que habría que hacer para desplegar ----------------
+# 1. Subir cambios a repositorio
+# 2. En AWS EC2 descargar cambios del repositorio
+# 3. Generar el fichero .jar de la app Spring
+# 4. Parar y eliminar contenedor app Spring
+# 5. Generar nueva imagen contenedor Spring con el nuevo .jar
+# 6. Crear y lanzar el contenedor de la imagen actualizada
