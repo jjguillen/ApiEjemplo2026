@@ -58,7 +58,7 @@ jobs:
             cd $APP_DIR && 
             
             echo "Actualizar código en servidor..." && 
-            git pull origin main && 
+            git pull origin master && 
             
             echo "Construir imagen Spring Boot..." && 
             podman build -t springapiejemplo:1.0 . && 
