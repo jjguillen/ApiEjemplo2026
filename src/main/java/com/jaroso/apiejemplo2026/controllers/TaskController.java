@@ -29,6 +29,11 @@ public class TaskController {
         return task.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/prueba")
+    public String error() {
+        return "Mensaje de error";
+    }
+
 
 
 }
