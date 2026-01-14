@@ -56,6 +56,9 @@ jobs:
             set -e && 
             APP_DIR=/home/ubuntu/spring/ApiEjemplo2026 && 
             cd $APP_DIR && 
+
+            echo "Descargar repo" &&
+            git pull origin master &&
             
             echo "Construir imagen Spring Boot..." && 
             podman build -t springapiejemplo:1.0 . && 
