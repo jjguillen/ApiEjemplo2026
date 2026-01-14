@@ -1,11 +1,9 @@
 name: Build Spring Boot JAR
-
 on:
   push:
     branches:
       - main
   pull_request:
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,5 +20,4 @@ jobs:
         with:
           name: spring-app
           path: build/libs/*.jar
-
           
