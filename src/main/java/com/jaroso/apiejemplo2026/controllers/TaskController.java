@@ -22,6 +22,11 @@ public class TaskController {
         return ResponseEntity.ok(taskService.findAll());
     }
 
+    @GetMapping("/tasks/order/{order}")
+    public ResponseEntity<List<Task>> getAllTaskOrder(@PathVariable String order){
+        return ResponseEntity.ok(taskService.findAllOrderByTitle(order));
+    }
+
     @GetMapping("/tasks/{id}")
     public ResponseEntity<Task> getTaskById(@PathVariable Long id){
         Optional<Task> task = taskService.findById(id);
