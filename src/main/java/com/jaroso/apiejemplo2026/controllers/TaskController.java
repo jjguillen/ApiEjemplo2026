@@ -29,6 +29,12 @@ public class TaskController {
         return task.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/tasks/title/{title}")
+    public ResponseEntity<Task> getTaskByTitle(@PathVariable String title){
+        Optional<Task> task = taskService.findByTitle(title);
+        return task.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
 
 
 
