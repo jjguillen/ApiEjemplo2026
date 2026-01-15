@@ -56,7 +56,12 @@ public class TaskController {
             //Si el id no es de una tarea válida
             return ResponseEntity.notFound().build();
         }
+    }
 
+    @DeleteMapping("/tasks")
+    public ResponseEntity<Void> deleteAll(){
+        taskService.deleteAll();
+        return ResponseEntity.noContent().build();
     }
 
 
