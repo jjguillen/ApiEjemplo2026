@@ -47,8 +47,16 @@ public class TaskController {
 
     @DeleteMapping("/tasks/{id}")
     public ResponseEntity<Task> delete(@PathVariable Long id){
-        Optional<Task> task = taskService.deleteTask(id);
-        return task.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<Task> task = taskService.findById(id);
+        if (task.isPresent()) {
+            //Si el id es válido lo borramos y devolvemos 204
+            taskService.deleteTask(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            //Si el id no es de una tarea válida
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
 
