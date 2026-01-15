@@ -13,7 +13,7 @@ public interface TaskService {
 
     Task saveTask(Task task);
 
-    Optional<Task> deleteTask(Long id);
+    void deleteTask(Long id);
     void deleteAll();
 
 }
