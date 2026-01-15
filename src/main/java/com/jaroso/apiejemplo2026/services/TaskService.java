@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface TaskService {
 
     List<Task> findAll();
+    List<Task> findAllOrderByTitle(String order);
     Optional<Task> findById(Long id);
     Optional<Task> findByTitle(String title);
 
