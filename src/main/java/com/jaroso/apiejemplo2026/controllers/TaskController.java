@@ -40,6 +40,21 @@ public class TaskController {
         return ResponseEntity.status(HttpStatus.CREATED).body(taskService.saveTask(task));
     }
 
+    @PutMapping("/tasks")
+    public ResponseEntity<Task> updateTask(@RequestBody Task task){
+        return ResponseEntity.ok(taskService.saveTask(task));
+    }
+
+    @DeleteMapping("/tasks/{id}")
+    public ResponseEntity<Task> delete(@PathVariable Long id){
+        Optional<Task> task = taskService.deleteTask(id);
+        return task.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+
+
+
+
 
 
 }
