@@ -1,5 +1,8 @@
 package com.jaroso.apiejemplo2026.services;
 
+import com.jaroso.apiejemplo2026.dtos.TaskCreateDto;
+import com.jaroso.apiejemplo2026.dtos.TaskDto;
+import com.jaroso.apiejemplo2026.dtos.TaskUpdateDto;
 import com.jaroso.apiejemplo2026.entities.Task;
 
 import java.util.List;
@@ -7,12 +10,14 @@ import java.util.Optional;
 
 public interface TaskService {
 
-    List<Task> findAll();
-    List<Task> findAllOrderByTitle(String order);
-    Optional<Task> findById(Long id);
-    Optional<Task> findByTitle(String title);
+    List<TaskDto> findAll();
+    List<TaskDto> findAllOrderByTitle(String order);
+    Optional<TaskDto> findById(Long id);
+    Optional<TaskDto> findByTitle(String title);
+    List<TaskDto> buscarPorTitulo(String texto);
 
-    Task saveTask(Task task);
+    TaskDto saveTask(TaskCreateDto task);
+    TaskDto updateTask(TaskUpdateDto task);
 
     void deleteTask(Long id);
     void deleteAll();
