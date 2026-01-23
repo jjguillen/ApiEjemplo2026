@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,9 +18,9 @@ import java.util.List;
 @Entity(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Setter
 public class User implements UserDetails {
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -30,6 +31,7 @@ public class User implements UserDetails {
 
     private String password;
 
+    @Getter
     private String email;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -87,6 +89,11 @@ public class User implements UserDetails {
         return this.authorities.stream()
                 .map(authority -> new SimpleGrantedAuthority(authority.toString()))
                 .toList();
+    }
+
+    @Override
+    public @Nullable String getPassword() {
+        return this.password;
     }
 
 }
