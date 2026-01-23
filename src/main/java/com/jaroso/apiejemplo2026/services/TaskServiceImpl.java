@@ -3,9 +3,12 @@ package com.jaroso.apiejemplo2026.services;
 import com.jaroso.apiejemplo2026.dtos.TaskCreateDto;
 import com.jaroso.apiejemplo2026.dtos.TaskDto;
 import com.jaroso.apiejemplo2026.dtos.TaskUpdateDto;
+import com.jaroso.apiejemplo2026.dtos.UserDto;
 import com.jaroso.apiejemplo2026.entities.Task;
+import com.jaroso.apiejemplo2026.entities.User;
 import com.jaroso.apiejemplo2026.mappers.TaskMapper;
 import com.jaroso.apiejemplo2026.repositories.TaskRepository;
+import com.jaroso.apiejemplo2026.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,9 @@ import java.util.Optional;
 
 @Service
 public class TaskServiceImpl implements TaskService {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private TaskRepository taskRepository;
@@ -52,7 +58,14 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDto saveTask(TaskCreateDto task) {
+        //Luego se cogerá del token JWT
+        String username = task.username();
+        Optional<User> user = userRepository.findByUserName(username);
+
         Task taskEntity = mapper.toEntity(task);
+
+        user.ifPresent(taskEntity::setUser); //Si no lanzar excepción
+
         return mapper.toDto(taskRepository.save(taskEntity));
     }
 
