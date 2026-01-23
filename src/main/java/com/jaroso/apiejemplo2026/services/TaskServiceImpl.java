@@ -59,7 +59,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskDto saveTask(TaskCreateDto task) {
         //Luego se cogerá del token JWT
-        String username = task.username();
+        String username = task.userName();
         Optional<User> user = userRepository.findByUserName(username);
 
         Task taskEntity = mapper.toEntity(task);
