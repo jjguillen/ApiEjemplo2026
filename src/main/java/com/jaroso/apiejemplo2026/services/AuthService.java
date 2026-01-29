@@ -2,6 +2,7 @@ package com.jaroso.apiejemplo2026.services;
 
 import com.jaroso.apiejemplo2026.dtos.AuthDto;
 import com.jaroso.apiejemplo2026.dtos.UserCreateDto;
+import com.jaroso.apiejemplo2026.dtos.UserDto;
 import com.jaroso.apiejemplo2026.entities.User;
 import com.jaroso.apiejemplo2026.repositories.UserRepository;
 import com.jaroso.apiejemplo2026.security.PasswordConfig;
@@ -21,7 +22,7 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public AuthDto save(UserCreateDto userDTO) {
+    public UserDto save(UserCreateDto userDTO) {
         User user = new User(
                 null,
                 userDTO.userName(),
@@ -32,7 +33,7 @@ public class AuthService {
 
         this.repository.save(user);
 
-        return new AuthDto(user.getUsername(),user.getAuthorities(),"");
+        return new UserDto(user.getId(), user.getUsername(), user.getEmail());
     }
 
 }
