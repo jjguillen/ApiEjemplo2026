@@ -6,13 +6,16 @@ import com.jaroso.apiejemplo2026.entities.User;
 import com.jaroso.apiejemplo2026.mappers.UserMapper;
 import com.jaroso.apiejemplo2026.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
@@ -44,4 +47,13 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return this.userRepository.findByUserName(username).orElseThrow(
+                () -> new UsernameNotFoundException(username + " no encontrado")
+        );
+    }
+
 }

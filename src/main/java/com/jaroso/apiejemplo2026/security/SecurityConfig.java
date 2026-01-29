@@ -6,17 +6,30 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
+
+    private JwtAuthenticationFilter jwt;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+
+                .authorizeHttpRequests((authz) -> authz
+                        .requestMatchers("/auth/register").permitAll()
+                        .requestMatchers("/auth/login").permitAll()
+                        .anyRequest().authenticated() //Autenticado todo menos login y register
+                )
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults()) //Solo aceptar peticiones de la app React
+                .addFilterBefore(jwt, UsernamePasswordAuthenticationFilter.class) //Metemos la comprobación de token jwt a las peticiones http
                 .httpBasic(Customizer.withDefaults())
                 .build();
-
     }
+
+
+
 }
