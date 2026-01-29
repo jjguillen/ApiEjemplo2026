@@ -32,7 +32,7 @@ public class AuthService {
 
         this.repository.save(user);
 
-        return null;
+        return new AuthDto(user.getUsername(),user.getAuthorities(),"");
     }
 
 }
