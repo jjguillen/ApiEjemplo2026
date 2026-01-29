@@ -42,6 +42,14 @@ public class User implements UserDetails {
     private List<UserAuthority> authorities = new ArrayList<>();
 
 
+    public User(Long id, String username, String password, String email, List<UserAuthority> authorities) {
+        this.id = id;
+        this.userName = username;
+        this.password = password;
+        this.email = email;
+        this.authorities = authorities;
+    }
+
     /**
      * Agrega una tarea a la lista de tareas del usuario
      * @param task

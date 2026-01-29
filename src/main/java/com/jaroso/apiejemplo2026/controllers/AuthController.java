@@ -1,7 +1,11 @@
 package com.jaroso.apiejemplo2026.controllers;
 
+import com.jaroso.apiejemplo2026.dtos.AuthDto;
 import com.jaroso.apiejemplo2026.dtos.UserCreateDto;
 import com.jaroso.apiejemplo2026.dtos.UserLoginDto;
+import com.jaroso.apiejemplo2026.services.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,15 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
 
+    @Autowired
+    private AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody UserCreateDto request) {
+    public ResponseEntity<AuthDto> register(@RequestBody UserCreateDto user) {
+        return authService.save(user);
+
         return null;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody UserLoginDto request) {
-        return null;
+    public ResponseEntity<AuthDto> login(@RequestBody UserLoginDto user) {
+        return authService.login(user);
     }
 
 }
