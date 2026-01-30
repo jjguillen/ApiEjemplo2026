@@ -6,6 +6,7 @@ import com.jaroso.apiejemplo2026.dtos.UserDto;
 import com.jaroso.apiejemplo2026.dtos.UserLoginDto;
 import com.jaroso.apiejemplo2026.entities.User;
 import com.jaroso.apiejemplo2026.repositories.UserRepository;
+import com.jaroso.apiejemplo2026.security.JwtService;
 import com.jaroso.apiejemplo2026.security.PasswordConfig;
 import com.jaroso.apiejemplo2026.security.UserAuthority;
 import org.slf4j.Logger;
@@ -37,7 +38,8 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
+    @Autowired
+    private JwtService jwtService;
 
     /**
      * Guarda un nuevo usuario en la BBDD
@@ -87,14 +89,14 @@ public class AuthService {
                         )
                 );
 
-
         //3. Generar el token JWT
+        String token = jwtService.generateToken(authentication);
 
         //4. Generar el objeto AuthDto con el token JWT y devolverlo en la respuesta Http
         User userEntity = (User) authentication.getPrincipal();
         AuthDto auth = new AuthDto(userEntity.getUsername(),
                 userEntity.getAuthorities().stream().map(Object::toString).toList(),
-                "");
+                token);
 
         return ResponseEntity.ok(auth);
     }
