@@ -7,6 +7,8 @@ import com.jaroso.apiejemplo2026.entities.User;
 import com.jaroso.apiejemplo2026.repositories.UserRepository;
 import com.jaroso.apiejemplo2026.security.PasswordConfig;
 import com.jaroso.apiejemplo2026.security.UserAuthority;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import java.util.List;
 
 @Service
 public class AuthService {
+
+    Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private UserRepository repository;
@@ -31,6 +35,13 @@ public class AuthService {
                 List.of(UserAuthority.READ)
         );
 
+        //Comprobar que el username no esté ya en BBDD
+        if (this.repository.findByUserName(user.getUsername()).isPresent()) {
+            log.error("El usuario ya existe");
+            throw new RuntimeException("El usuario ya existe");
+        }
+
+        //Si no existe lo insertamos en BBDD y devolvemos un UserDto
         this.repository.save(user);
 
         return new UserDto(user.getId(), user.getUsername(), user.getEmail());
