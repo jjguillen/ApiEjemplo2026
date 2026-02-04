@@ -74,17 +74,17 @@ public class AuthService {
      */
     public ResponseEntity<AuthDto> login(UserLoginDto user) {
         //1. Buscar el usuario en la BBDD
-        Optional<User> userOptional = this.repository.findByUserName(user.userName());
+        Optional<User> userOptional = this.repository.findByUserName(user.username());
         if (userOptional.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
 
         //2. Comprobar que el password coincida con el del usuario
-        Authentication authDTO = new UsernamePasswordAuthenticationToken(user.userName(), user.password());
+        Authentication authDTO = new UsernamePasswordAuthenticationToken(user.username(), user.password());
         Authentication authentication =
                 authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
-                                user.userName(),
+                                user.username(),
                                 user.password()
                         )
                 );
